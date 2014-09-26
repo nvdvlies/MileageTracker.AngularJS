@@ -1,0 +1,9 @@
+body {
+  margin-top: 60px;
+}
+
+.ng-table th {
+  text-align: left;
+}
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }

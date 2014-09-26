@@ -1,0 +1,21 @@
+{
+  "name": "MileageTracker.AngularJS",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "app/bower_components",
+    "test"
+  ],
+  "dependencies": {
+    "angular": "~1.2.25",
+    "angular-route": "~1.2.25",
+    "angular-cookies": "~1.2.25",
+    "angular-bootstrap": "~0.11.0",
+    "jquery": "~2.1.1",
+    "bootswatch-dist": "3.2.0-united",
+    "ng-table": "~0.3.3",
+    "normalize.css": "~3.0.1",
+    "html5-boilerplate": "~4.3.0",
+    "modernizr": "~2.8.3"
+  }
+}

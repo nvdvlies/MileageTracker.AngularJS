@@ -1,0 +1,36 @@
+<h2>Trips</h2>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+
+    <div class="table-responsive">
+      <a ng-click="createNewTrip()" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new trip</a>
+      <table ng-table="tableParams" class="table table-striped table-hover">
+        <tbody>
+          <tr ng-repeat="trip in $data">
+            <td data-title="'Date'">{{ trip.date | date:'mediumDate': timezone:'UTC' }}</td>
+            <td data-title="'From'">{{ trip.addressOrigin.name }}</td>
+            <td data-title="'To'">{{ trip.addressDestination.name }}</td>
+            <td data-title="'Distance'">{{ trip.distanceInKm }} km</td>
+            <td data-title="'Edit'">
+              <p>
+                <button class="btn btn-primary btn-xs" ng-click="editTrip(trip)">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+              </p>
+            </td>
+            <td data-title="'Delete'">
+              <p>
+                <button class="btn btn-danger btn-xs" ng-click="deleteTrip(trip)">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </button>
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

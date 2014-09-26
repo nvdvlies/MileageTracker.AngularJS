@@ -1,0 +1,42 @@
+<h2>{{ headerTitle }}</h2>
+
+<div class="row">
+  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+
+  <div class="col-lg-6">
+    <form class="form-horizontal" novalidate name="Form" method="post" action="">
+      <fieldset>
+        <div class="form-group">
+          <label for="inputDate" class="col-lg-2 control-label">Description</label>
+          <div class="col-lg-10">
+     		<input class="form-control" id="name" ng-model="address.name" required="required"> 
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputAddressOrigin" class="col-lg-2 control-label">Address</label>
+          <div class="col-lg-10">
+     		<input class="form-control" id="addressLine" ng-model="address.addressLine" required="required">	
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputAddressDestination" class="col-lg-2 control-label">Postalcode</label>
+          <div class="col-lg-10">
+          		<input class="form-control" id="postalCode" ng-model="address.postalCode" required="required">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputCar" class="col-lg-2 control-label">City</label>
+          <div class="col-lg-10">
+          		<input class="form-control" id="city" ng-model="address.city" required="required">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-10 col-lg-offset-2">
+            <button class="btn btn-primary" ng-disabled="Form.$invalid" ng-click="saveAddress(address);">Submit</button>
+            <button class="btn btn-default" ng-click="cancel();">Cancel</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<h2>{{ headerTitle }}</h2>
+
+<div class="row">
+  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+
+  <div class="col-lg-6">
+    <form class="form-horizontal" novalidate name="Form" method="post" action="">
+      <fieldset>
+        <div class="form-group">
+          <label for="inputDate" class="col-lg-2 control-label">Date</label>
+          <div class="col-lg-10">
+            <datepicker ng-model="trip.date" class="well well-sm" required="required"></datepicker>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputAddressOrigin" class="col-lg-2 control-label">From</label>
+          <div class="col-lg-10">
+            <select class="form-control" ng-options="a.id as a.name + ' (' + a.city + ')' for a in addresses" ng-model="trip.addressOrigin.id" required="required"></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputAddressDestination" class="col-lg-2 control-label">To</label>
+          <div class="col-lg-10">
+            <select class="form-control" ng-options="a.id as a.name + ' (' + a.city + ')' for a in addresses" ng-model="trip.addressDestination.id" required="required"></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputCar" class="col-lg-2 control-label">Car</label>
+          <div class="col-lg-10">
+            <select class="form-control" ng-options="c.id as c.model + ' ' + c.make for c in cars" ng-model="trip.car.id" required="required"></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="textArea" class="col-lg-2 control-label">Remarks</label>
+          <div class="col-lg-10">
+            <textarea class="form-control" rows="3" id="textArea" ng-model="trip.remarks"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-10 col-lg-offset-2">
+            <button class="btn btn-primary" ng-disabled="Form.$invalid" ng-click="saveTrip(trip);">Submit</button>
+            <button class="btn btn-default" ng-click="cancel();">Cancel</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
