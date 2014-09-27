@@ -1,145 +1,145 @@
 (function () {
-	'use strict';
+  'use strict';
 
-	describe('Unit: AccountController', function() {
-	var scope, createController;
-	
-	beforeEach(function(){
-		module('ngRoute');
-		module('ngCookies');
-		module('ui.bootstrap');
-		module('ngTable');
-		module('MileageTracker');
-	});
+  describe('Unit: AccountController', function() {
+    var scope, createController;
+    
+    beforeEach(function(){
+      module('ngRoute');
+      module('ngCookies');
+      module('ui.bootstrap');
+      module('ngTable');
+      module('MileageTracker');
+    });
 
-	 beforeEach(inject(function($injector) {
-		 scope = $injector.get('$rootScope').$new();
+    beforeEach(inject(function($injector) {
+      scope = $injector.get('$rootScope').$new();
 
-		 var $controller = $injector.get('$controller');
-		 createController = function() {
-		 return $controller('AccountController', {'$scope' : scope});
-		 };
-	 }));
+      var $controller = $injector.get('$controller');
+      createController = function() {
+        return $controller('AccountController', {'$scope' : scope});
+      };
+    }));
 
-	it('should be able to login', inject(function ($q, AuthService, $location) {
-		//Arrange
-		var controller = createController();
+    it('should be able to login', inject(function ($q, AuthService, $location) {
+      //Arrange
+      var controller = createController();
 
-		scope.user = {
-		username: 'TestUser', 
-		password: 'TestPassword'
-		};
+      scope.user = {
+        username: 'TestUser', 
+        password: 'TestPassword'
+      };
 
-		var deferred = $q.defer();
-		spyOn(AuthService, 'login').andReturn(deferred.promise);
+      var deferred = $q.defer();
+      spyOn(AuthService, 'login').andReturn(deferred.promise);
 
-		spyOn($location, 'path');
+      spyOn($location, 'path');
 
-		//Act
-		scope.login(scope.user);
+      //Act
+      scope.login(scope.user);
 
-		//Assert
-		expect(AuthService.login).toHaveBeenCalled();
-		expect(AuthService.login).toHaveBeenCalledWith(scope.user.username, scope.user.password);
+      //Assert
+      expect(AuthService.login).toHaveBeenCalled();
+      expect(AuthService.login).toHaveBeenCalledWith(scope.user.username, scope.user.password);
 
-		deferred.resolve();
-		scope.$digest();
+      deferred.resolve();
+      scope.$digest();
 
-		expect(scope.alerts).toEqual([]);
-		expect($location.path).toHaveBeenCalled();
-		expect($location.path).toHaveBeenCalledWith('/');
+      expect(scope.alerts).toEqual([]);
+      expect($location.path).toHaveBeenCalled();
+      expect($location.path).toHaveBeenCalledWith('/');
 
-	}));
+    }));
 
-	it('should show an error after invalid login', inject(function ($q, AuthService) {
-		//Arrange
-		var controller = createController();
+    it('should show an error after invalid login', inject(function ($q, AuthService) {
+      //Arrange
+      var controller = createController();
 
-		scope.user = {
-		username: 'InvalidUser', 
-		password: 'InvalidPassword'
-		};
+      scope.user = {
+        username: 'InvalidUser', 
+        password: 'InvalidPassword'
+      };
 
-		var deferred = $q.defer();
-		spyOn(AuthService, 'login').andReturn(deferred.promise);
+      var deferred = $q.defer();
+      spyOn(AuthService, 'login').andReturn(deferred.promise);
 
-		//Act
-		scope.login(scope.user);
+      //Act
+      scope.login(scope.user);
 
-		//Assert
-		expect(AuthService.login).toHaveBeenCalled();
-		expect(AuthService.login).toHaveBeenCalledWith(scope.user.username, scope.user.password);
+      //Assert
+      expect(AuthService.login).toHaveBeenCalled();
+      expect(AuthService.login).toHaveBeenCalledWith(scope.user.username, scope.user.password);
 
-		deferred.reject({ data: 'some error' });
-		scope.$digest();
+      deferred.reject({ data: 'some error' });
+      scope.$digest();
 
-		expect(scope.alerts.length).toEqual(1);
-		
-	}));
+      expect(scope.alerts.length).toEqual(1);
+      
+    }));
 
-	it('should be able to register', inject(function ($q, AuthService) {
-		//Arrange
-		var controller = createController();
+    it('should be able to register', inject(function ($q, AuthService) {
+      //Arrange
+      var controller = createController();
 
-		scope.user = {
-		username: 'TestUser', 
-		password: 'TestPassword',
-		confirmPassword: 'TestPassword'
-		};
+      scope.user = {
+        username: 'TestUser', 
+        password: 'TestPassword',
+        confirmPassword: 'TestPassword'
+      };
 
-		var deferred = $q.defer();
-		spyOn(AuthService, 'register').andReturn(deferred.promise);
+      var deferred = $q.defer();
+      spyOn(AuthService, 'register').andReturn(deferred.promise);
 
-		spyOn(scope, 'login');
+      spyOn(scope, 'login');
 
-		//Act
-		scope.register(scope.user);
+      //Act
+      scope.register(scope.user);
 
-		//Assert
-		expect(AuthService.register).toHaveBeenCalled();
-		expect(AuthService.register).toHaveBeenCalledWith(scope.user.username, scope.user.password, scope.user.confirmPassword);
+      //Assert
+      expect(AuthService.register).toHaveBeenCalled();
+      expect(AuthService.register).toHaveBeenCalledWith(scope.user.username, scope.user.password, scope.user.confirmPassword);
 
-		deferred.resolve();
-		scope.$digest();
+      deferred.resolve();
+      scope.$digest();
 
-		expect(scope.login).toHaveBeenCalled();
+      expect(scope.login).toHaveBeenCalled();
 
-		expect(scope.alerts).toEqual([]);
+      expect(scope.alerts).toEqual([]);
 
-	}));
+    }));
 
 
-	it('should show an error after incorrect registration', inject(function ($q, AuthService) {
-		//Arrange
-		var controller = createController();
+    it('should show an error after incorrect registration', inject(function ($q, AuthService) {
+      //Arrange
+      var controller = createController();
 
-		scope.user = {
-		username: 'InvalidUser', 
-		password: 'InvalidPassword',
-		confirmPassword: 'InvalidPassword'
-		};
+      scope.user = {
+        username: 'InvalidUser', 
+        password: 'InvalidPassword',
+        confirmPassword: 'InvalidPassword'
+      };
 
-		var deferred = $q.defer();
-		spyOn(AuthService, 'register').andReturn(deferred.promise);
+      var deferred = $q.defer();
+      spyOn(AuthService, 'register').andReturn(deferred.promise);
 
-		spyOn(scope, 'login');
+      spyOn(scope, 'login');
 
-		//Act
-		scope.register(scope.user);
+      //Act
+      scope.register(scope.user);
 
-		//Assert
-		expect(AuthService.register).toHaveBeenCalled();
-		expect(AuthService.register).toHaveBeenCalledWith(scope.user.username, scope.user.password, scope.user.confirmPassword);
+      //Assert
+      expect(AuthService.register).toHaveBeenCalled();
+      expect(AuthService.register).toHaveBeenCalledWith(scope.user.username, scope.user.password, scope.user.confirmPassword);
 
-		deferred.reject({ data: 'some error' });
-		scope.$digest();
+      deferred.reject({ data: 'some error' });
+      scope.$digest();
 
-		expect(scope.login).not.toHaveBeenCalled();
+      expect(scope.login).not.toHaveBeenCalled();
 
-		expect(scope.alerts.length).toEqual(1);
+      expect(scope.alerts.length).toEqual(1);
 
-	}));
-	
-	});
+    }));
+  
+  });
 
 }());
