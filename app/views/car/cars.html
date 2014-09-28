@@ -9,7 +9,7 @@
       <a ng-click="createNewCar()" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new car</a>
       <table ng-table="tableParams" class="table table-striped table-hover">
         <tr ng-repeat="car in $data">
-          <td data-title="'Model'">{{ car.model }} {{ car.make }}</td>
+          <td data-title="'Car'">{{ car.make }} {{ car.model }}</td>
           <td data-title="'NumberPlate'">{{ car.numberPlate }}</td>
           <td data-title="'Edit'">
             <p>
